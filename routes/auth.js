@@ -4,7 +4,9 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = mongoose.model("User");
-const {JWT_SECRET} = require("../keys")
+const {JWT_SECRET} = require("../keys");
+const requireLogin = require('../middleware/requireLogin');
+
 
 router.get('/', (req, res) => {
   res.send("hello");
@@ -14,7 +16,7 @@ router.get('/', (req, res) => {
 // @desc add a user
 // @access Public
 
-router.get('/protected', (req,res) => {
+router.get('/protected', requireLogin , (req,res) => {
   res.send("Hello user")
 })
 
